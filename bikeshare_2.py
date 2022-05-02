@@ -2,9 +2,10 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = {'chicago': 'chicago.csv',
+             'new york city': 'new_york_city.csv',
+             'washington': 'washington.csv'}
+
 
 def get_filters():
     """
@@ -16,27 +17,28 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    #TASK: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    
-    
+    # TASK: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+
     while True:
-        city = input("\nWhich city would you like to filter by? New York City, Chicago or Washington?\n")
+        city = input(
+            "\nWhich city would you like to filter by? New York City, Chicago or Washington?\n")
         city = city.lower()
         if city in ['chicago', 'new york city', 'washington']:
             break
         else:
             print("invalid input. Please enter a valid city")
-            
+
     # TASK: get user input for month (all, january, february, ... , june)
-    while True:    
-        month = input("\nWhich month would you like to filter by? January, February, March, April, May, June or type 'all' if you do not have any preference?\n")
+    while True:
+        month = input(
+            "\nWhich month would you like to filter by? January, February, March, April, May, June or type 'all' if you do not have any preference?\n")
         month = month.lower()
         if month in ['january', 'february', 'march', 'april', 'may', 'june', 'all']:
             break
         else:
             print("invalid input. Please enter a valid input")
-            
-    #TASK: get user input for day of week (all, monday, tuesday, ... sunday)
+
+    # TASK: get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
         day = input("\nAre you looking for a particular day? If so, kindly enter the day as follows: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or type 'all' if you do not have any preference.\n")
         day = day.lower()
@@ -59,9 +61,9 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-     # load data file into a dataframe
+    # load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
-    
+
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
@@ -69,20 +71,19 @@ def load_data(city, month, day):
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
 
-
     # filter by month if applicable
     if month != 'all':
         # use the index of the months list to get the corresponding int
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
-    
+
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
 
     # filter by day of week if applicable
     if day != 'all':
         # filter by day of week to create the new dataframe
-        
+
         df = df[df['day_of_week'] == day.title()]
 
     return df
@@ -98,7 +99,8 @@ def time_stats(df):
     print("The most common month is ", df['month'].mode()[0], "\n")
 
     # display the most common day of week
-    print("The most common day of week  is ", df['day_of_week'].mode()[0], "\n")
+    print("The most common day of week  is ",
+          df['day_of_week'].mode()[0], "\n")
 
     # display the most common start hour
     df['hour'] = df['Start Time'].dt.hour
@@ -115,14 +117,17 @@ def station_stats(df):
     start_time = time.time()
 
     # display most commonly used start station
-    print("The most commonly used start station is ", df['Start Station'].mode()[0], "\n")
+    print("The most commonly used start station is ",
+          df['Start Station'].mode()[0], "\n")
 
     # display most commonly used end station
-    print("The most commonly used end station is ", df['End Station'].mode()[0], "\n")
+    print("The most commonly used end station is ",
+          df['End Station'].mode()[0], "\n")
 
     # display most frequent combination of start station and end station trip
     df['combination'] = df['Start Station'] + " " + df['End Station']
-    print("The most frequent combination of start station and end station trip is: ", df['combination'].mode()[0])
+    print("The most frequent combination of start station and end station trip is: ",
+          df['combination'].mode()[0])
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -158,7 +163,8 @@ def user_stats(df, city):
         gen = df.groupby(['Gender'])['Gender'].count()
         print(gen)
         # Display earliest, most recent, and most common year of birth
-        mryob = sorted(df.groupby(['Birth Year'])['Birth Year'], reverse=True)[0][0]
+        mryob = sorted(df.groupby(['Birth Year'])[
+                       'Birth Year'], reverse=True)[0][0]
         eyob = sorted(df.groupby(['Birth Year'])['Birth Year'])[0][0]
         mcyob = df['Birth Year'].mode()[0]
         print("The earliest year of birth is ", eyob, "\n")
@@ -176,6 +182,7 @@ def user_stats(df, city):
         else:
             break
 
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -186,10 +193,12 @@ def main():
         trip_duration_stats(df)
         user_stats(df, city)
 
+        # prompt user to restart or exit
+
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
 
 
 if __name__ == "__main__":
-	main()
+    main()
