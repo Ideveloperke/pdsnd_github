@@ -10,16 +10,18 @@ A terminal application
 The Datasets:
 The datasets provided by Motivate, a bike share system provider in the US, contains randomly selected data for the first six months of 2017 for all three cities. The data files for all three cities contain the same core six columns:
 
-Start Time (e.g., 2017-01-01 00:07:57)
-End Time (e.g., 2017-01-01 00:20:53)
-Trip Duration (in seconds - e.g., 776)
-Start Station (e.g., Broadway & Barry Ave)
-End Station (e.g., Sedgwick St & North Ave)
-User Type (Subscriber or Customer)
+- Start Time (e.g., 2017-01-01 00:07:57)
+- End Time (e.g., 2017-01-01 00:20:53)
+- Trip Duration (in seconds - e.g., 776)
+- Start Station (e.g., Broadway & Barry Ave)
+- End Station (e.g., Sedgwick St & North Ave)
+- User Type (Subscriber or Customer)
+
 The Chicago and New York City files also have the following two columns:
 
-Gender
-Birth Year
+- Gender
+- Birth Year
+
 image
 
 Answering Questions:
